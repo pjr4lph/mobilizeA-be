@@ -3,7 +3,20 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 
+const mongoose = require('mongoose');
 // this is used to simply check what is being asked for - for development only
+
+const dbURI = 'mongodb://ralph:pjr4lph@ds151558.mlab.com:51558/ralphs';
+
+mongoose.connect(dbURI);
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error'));
+
+db.once('open', () => {
+  console.log('Connected to Database');
+});
+
 app.use((req, res, next) => {
   console.log(req.method, req.url);
   next();
