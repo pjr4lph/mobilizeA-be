@@ -9,6 +9,14 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/style.css', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/style.css'));
+});
+
+app.get('/index.js', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/index.js'));
+});
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
 });
