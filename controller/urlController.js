@@ -49,7 +49,7 @@ urlController.checkUrl = function(req, res, next) {
   });
 };
 
-urlController.shortToLong = function(req, res) {
+urlController.redirectToLink = function(req, res) {
   let currentHash = req.params.hash;
 
   Url.findOneAndUpdate({short: currentHash}, {$inc:{visits: +1}}, function(err, result) {

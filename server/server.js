@@ -26,20 +26,7 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.set('view engine', 'ejs');
-
-// app.get('/style.css', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../client/style.css'));
-// });
-//
-// app.get('/index.js', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../client/index.js'));
-// });
-
-// app.get('/', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../index.html'));
-// });
 
 app.get('/', function(req, res) {
     res.render('pages/index', {
@@ -49,7 +36,7 @@ app.get('/', function(req, res) {
 
 app.post('/submit', urlController.checkUrl, urlController.addUrl);
 
-app.get('/:hash', urlController.shortToLong)
+app.get('/:hash', urlController.redirectToLink);
 
 const PORT = 3000;
 app.listen(PORT, () => { console.log(`listening on port ${PORT}`) });
