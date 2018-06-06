@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.schema;
 
-let Url = mongooose.Schema({
-  url: String,
-  shortUrl: String,
+let Url = mongoose.Schema({
+  link: String,
+  short: String,
   createdAt: {type: Date, default: Date.now},
   visits: Number
 });

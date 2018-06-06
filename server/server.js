@@ -18,22 +18,37 @@ db.once('open', () => {
 });
 
 // this is used to simply check what is being asked for - for development only
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use((req, res, next) => {
-  console.log(req.method, req.url);
+  console.log(req.method, req.url, req.body);
   next();
 });
 
-app.get('/style.css', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/style.css'));
+
+app.set('view engine', 'ejs');
+
+// app.get('/style.css', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/style.css'));
+// });
+//
+// app.get('/index.js', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/index.js'));
+// });
+
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../index.html'));
+// });
+
+app.get('/', function(req, res) {
+    res.render('pages/index', {
+      shortUrl: ''
+    });
 });
 
-app.get('/index.js', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/index.js'));
-});
+app.post('/submit', urlController.checkUrl, urlController.addUrl);
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../index.html'));
-});
 
 const PORT = 3000;
 app.listen(PORT, () => { console.log(`listening on port ${PORT}`) });

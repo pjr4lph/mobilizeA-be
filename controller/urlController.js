@@ -10,3 +10,46 @@ function changeHash() {
     const cap = capLetters[Math.floor(Math.random() * Math.floor(25))];
     return `${low}${num}${cap}`;
 }
+
+const urlController = {};
+
+urlController.addUrl = function(req, res, next) {
+  const currentUrl = req.body.link;
+  console.log(currentUrl);
+  const currentHash = changeHash(currentUrl);
+  Url.create({
+    link: currentUrl,
+    short: currentHash,
+    visits: 0
+  }, (err, result) => {
+    if (err) console.log(err);
+    else {
+      // res.send(result);
+      // next();
+      console.log('in submit', result);
+      let currentShort = `localhost:3000/${result.short}`;
+      res.render('pages/index', {
+        shortUrl: currentShort
+      });
+    }
+  });
+};
+
+urlController.checkUrl = function(req, res, next) {
+  Url.findOne({link: req.body.link}, (err, url) => {
+    if (err) console.log(err);
+    else if (url) {
+      console.log('in check', url.short);
+      let currentShort = url.short;
+      res.render('pages/index', {
+        shortUrl: currentShort
+      })
+      res.send();
+    } else {
+      next();
+      // res.redirect(307, '/create');
+    }
+  });
+};
+
+module.exports = urlController;
