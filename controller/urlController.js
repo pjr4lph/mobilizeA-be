@@ -16,7 +16,7 @@ const urlController = {};
 urlController.addUrl = function(req, res, next) {
   const currentUrl = req.body.link;
   console.log(currentUrl);
-  const currentHash = changeHash(currentUrl);
+  let currentHash = changeHash(currentUrl);
   Url.create({
     link: currentUrl,
     short: currentHash,
@@ -24,8 +24,6 @@ urlController.addUrl = function(req, res, next) {
   }, (err, result) => {
     if (err) console.log(err);
     else {
-      // res.send(result);
-      // next();
       console.log('in submit', result);
       let currentShort = `localhost:3000/${result.short}`;
       res.render('pages/index', {
@@ -36,20 +34,31 @@ urlController.addUrl = function(req, res, next) {
 };
 
 urlController.checkUrl = function(req, res, next) {
-  Url.findOne({link: req.body.link}, (err, url) => {
+  Url.findOne({link: req.body.link}, (err, result) => {
     if (err) console.log(err);
-    else if (url) {
-      console.log('in check', url.short);
-      let currentShort = url.short;
+    else if (result) {
+      console.log('in check', result.short);
+      let currentShort = result.short;
       res.render('pages/index', {
-        shortUrl: currentShort
+        shortUrl: `http://localhost:3000/${result.short}`
       })
       res.send();
     } else {
       next();
-      // res.redirect(307, '/create');
     }
   });
 };
+
+urlController.shortToLong = function(req, res) {
+  let currentHash = req.params.hash;
+
+  Url.findOne({short: currentHash}, function(err, result) {
+    if (err) res.redirect('http://localhost:3000');
+    else {
+      console.log('in short2long', result);
+      res.redirect(`http://${result.link}`);
+    }
+  });
+}
 
 module.exports = urlController;

@@ -49,6 +49,7 @@ app.get('/', function(req, res) {
 
 app.post('/submit', urlController.checkUrl, urlController.addUrl);
 
+app.get('/:hash', urlController.shortToLong)
 
 const PORT = 3000;
 app.listen(PORT, () => { console.log(`listening on port ${PORT}`) });
