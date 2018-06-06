@@ -52,10 +52,11 @@ urlController.checkUrl = function(req, res, next) {
 urlController.shortToLong = function(req, res) {
   let currentHash = req.params.hash;
 
-  Url.findOne({short: currentHash}, function(err, result) {
+  Url.findOneAndUpdate({short: currentHash}, {$inc:{visits: +1}}, function(err, result) {
     if (err) res.redirect('http://localhost:3000');
     else {
       console.log('in short2long', result);
+
       res.redirect(`http://${result.link}`);
     }
   });
