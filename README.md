@@ -4,7 +4,7 @@
 2) change into downloaded directory in your terminal
 3) run npm init 
 4) run node server/server.js to run the server that hosts site at localhost:3000
-5) on page type in desired long url without 'http://' or 'https://' in front of url 
+5) in textarea type in long url without 'http://' or 'https://' in front of url 
 
 ```correct: www.google.com``` 
 
