@@ -1,0 +1,26 @@
+{
+  "name": "mobilizea-be",
+  "version": "1.0.0",
+  "description": "tinyurl clone",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pjr4lph/mobilizeA-be.git"
+  },
+  "author": "ralph salazar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pjr4lph/mobilizeA-be/issues"
+  },
+  "homepage": "https://github.com/pjr4lph/mobilizeA-be#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "mongoose": "^5.1.4",
+    "npm": "^6.1.0"
+  }
+}
